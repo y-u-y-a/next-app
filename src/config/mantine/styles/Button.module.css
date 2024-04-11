@@ -1,0 +1,17 @@
+.root {
+  .section {
+    margin-right: 4px;
+  }
+}
+
+.root[data-variant='filled'] {
+  border: 1px solid #4484BC;
+  color: white;
+  background: #4484BC;
+}
+
+.root[data-variant='outline'] {
+  border: 1px solid #4484BC;
+  color: #4484BC;
+  background: white;
+}

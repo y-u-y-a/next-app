@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  openapi:
+    container_name: openapi
+    image: swaggerapi/swagger-ui
+    volumes:
+      - ./schema.json:/usr/share/nginx/html/openapi.json
+    environment:
+      API_URL: openapi.json
+    ports:
+      - 9000:8080

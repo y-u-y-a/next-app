@@ -1,0 +1,102 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Sample API",
+    "description": "This is a sample API definition",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.example.com/api/v1"
+    }
+  ],
+  "paths": {
+    "/companies": {
+      "get": {
+        "summary": "企業情報を全件取得する",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getAllCompaniesResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "getAllCompaniesResponse": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Company"
+        }
+      },
+      "Company": {
+        "type": "object",
+        "required": ["id", "name", "email"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "ID"
+          },
+          "name": {
+            "type": "string",
+            "title": "企業名"
+          },
+          "email": {
+            "type": "string",
+            "title": "メールアドレス"
+          }
+        }
+      }
+    },
+    "responses": {
+      "NotFound": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["error"],
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "nullable": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "InternalServerError": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["error"],
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "nullable": false
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
