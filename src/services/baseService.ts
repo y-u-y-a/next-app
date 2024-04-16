@@ -1,7 +1,7 @@
 import createClient from "openapi-fetch"
 import type { paths } from "./api"
 
-export class ApiService {
+export class BaseService {
   protected mock
   protected api
   constructor() {

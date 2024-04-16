@@ -1,7 +1,7 @@
 import type { Company } from "@/models/company"
-import { ApiService } from "./apiService"
+import { BaseService } from "./baseService"
 
-class CompanyService extends ApiService {
+class CompanyService extends BaseService {
   /** 企業情報一覧を取得する */
   async getAll(): Promise<Company[]> {
     const { data } = await this.mock.GET("/companies")

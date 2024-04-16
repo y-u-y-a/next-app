@@ -15,7 +15,7 @@
     "format": "pnpm biome format --write ./src",
     "test": "VITE_CJS_IGNORE_WARNING=true vitest run",
     "test:watch": "VITE_CJS_IGNORE_WARNING=true vitest watch",
-    "api": "openapi-typescript ./api/schema.json --output ./src/services/api.ts",
+    "api": "openapi-typescript ./api/schema.json --output ./src/services/api.d.ts",
     "mock": "json-server --watch ./api/mock.json --port 8000"
   },
   "dependencies": {

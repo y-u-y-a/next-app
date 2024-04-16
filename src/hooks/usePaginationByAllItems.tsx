@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export const usePagination = <T,>(items: T[], perPage: number) => {
+export const usePaginationByAllItems = <T,>(items: T[], perPage: number) => {
   const [currentPage, setCurrentPage] = useState(1)
 
   // ページネーション分割
