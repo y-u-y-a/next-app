@@ -1,13 +1,15 @@
 import { Container, Title } from "@mantine/core"
+import type { Metadata } from "next/types"
 
-export default async function RootPage() {
+export const metadata: Metadata = {
+  title: "トップ",
+  description: "トップ",
+}
+
+export default function RootPage() {
   return (
-    <>
-      <Container py={40}>
-        <Title size="h2" data-testid="home-articles">
-          トップページ
-        </Title>
-      </Container>
-    </>
+    <Container py={40}>
+      <Title children="トップ" />
+    </Container>
   )
 }

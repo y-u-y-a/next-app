@@ -11,10 +11,10 @@ export interface paths {
       responses: {
         200: {
           content: {
-            "application/json": components["schemas"]["getAllCompaniesResponse"];
+            "application/json": components["schemas"]["Companies"];
           };
         };
-        404: components["responses"]["NotFound"];
+        404: components["responses"]["NotFoundError"];
         500: components["responses"]["InternalServerError"];
       };
     };
@@ -25,7 +25,6 @@ export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
-    getAllCompaniesResponse: components["schemas"]["Company"][];
     Company: {
       /** ID */
       id: string;
@@ -34,9 +33,10 @@ export interface components {
       /** メールアドレス */
       email: string;
     };
+    Companies: components["schemas"]["Company"][];
   };
   responses: {
-    NotFound: {
+    NotFoundError: {
       content: {
         "application/json": {
           error: string;

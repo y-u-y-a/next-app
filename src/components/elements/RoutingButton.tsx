@@ -16,7 +16,7 @@ interface Props extends ButtonProps {
  * nextjs13.4以降、初回のrouter.pushのみハードナビゲーションします
  * 2回目以降はLinkと同様にソフトナビゲーションします
  */
-export function LinkButton({ children, href, unLoading, ...props }: Props) {
+export function PagingButton({ children, href, unLoading, ...props }: Props) {
   const router = useRouter()
   const [isLoading, loading] = useDisclosure(false)
 

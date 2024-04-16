@@ -2,6 +2,7 @@ export const APP_TITLE = "sample"
 
 export const Routes = {
   HOME: "/",
+  POKEMONS: "/pokemons",
   COMPANIES: "/companies",
 } as const
 
@@ -9,7 +10,7 @@ export const Images = {
   NOT_FOUND: "/images/not-found.png",
 } as const
 
-export const ERRORS = {
+export const Errors = {
   REQUIRED: "入力必須項目です",
   REQUIRED_SELECT: "選択必須項目です",
   REQUIRED_CHECK: "確認してチェックしてください",
