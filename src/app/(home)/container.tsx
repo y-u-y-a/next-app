@@ -6,6 +6,9 @@ import { useRouter, useSearchParams } from "next/navigation"
 import useSWR from "swr"
 import { PokemonList } from "./PokemonList"
 
+/**
+ * クエリパラメータのpageを基準に再レンダリングさせている
+ * */
 export function RootContainer() {
   const router = useRouter()
   const currentPage = Number(useSearchParams().get("page")) || 1
