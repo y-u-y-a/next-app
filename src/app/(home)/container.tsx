@@ -1,43 +1,27 @@
 "use client"
 
-import type { Pokemon } from "@/models/pokemon"
 import { pokemonService } from "@/services/pokemonService"
-import { Card, CardSection, Grid, GridCol, Group, Image, Pagination, Text } from "@mantine/core"
-import Link from "next/link"
-import { useState } from "react"
+import { Group, Pagination } from "@mantine/core"
+import { useRouter, useSearchParams } from "next/navigation"
+import useSWR from "swr"
+import { PokemonList } from "./PokemonList"
 
-interface Props {
-  pokemons: Pokemon[]
-}
+export function RootContainer() {
+  const router = useRouter()
+  const currentPage = Number(useSearchParams().get("page")) || 1
 
-export function RootContainer({ pokemons }: Props) {
-  const [currentPage, setCurrentPage] = useState(1)
-  const [currentPokemons, setCurrentPokemons] = useState<Pokemon[]>(pokemons)
+  const { data, isLoading } = useSWR(`/pokemons?page=${currentPage}`, () => pokemonService.getPagination(currentPage))
 
-  const refetchPokemons = async (newPage: number): Promise<void> => {
-    const pokemons = await pokemonService.getAll(newPage)
-    setCurrentPokemons(pokemons)
-    setCurrentPage(newPage)
+  const refetch = (newPage: number) => {
+    router.replace(`/?page=${newPage}`)
   }
 
   return (
     <>
       <Group mb={20} justify="flex-end">
-        <Pagination color="teal" withControls={false} total={20} value={currentPage} onChange={refetchPokemons} />
+        <Pagination color="teal" total={data?.totalPage || 40} value={currentPage} onChange={refetch} />
       </Group>
-
-      <Grid>
-        {currentPokemons.map((pokemon) => (
-          <GridCol span={{ base: 12, xs: 6, sm: 4, md: 3 }} key={pokemon.id}>
-            <Card component={Link} href={pokemon.image} target="_blank" withBorder>
-              <CardSection>
-                <Image src={pokemon.image} alt={pokemon.name} />
-              </CardSection>
-              <Text fw="bold" ta="center" children={pokemon.name} lineClamp={2} />
-            </Card>
-          </GridCol>
-        ))}
-      </Grid>
+      {!isLoading && data && <PokemonList pokemons={data.pokemons} />}
     </>
   )
 }

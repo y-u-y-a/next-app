@@ -9,6 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "prod": "pnpm build && pnpm start",
     "lint": "run-p -c -l lint:**",
     "lint:tsc": "tsc",
     "lint:biome": "pnpm biome lint ./src",
@@ -28,6 +29,7 @@
     "openapi-fetch": "^0.9.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "swr": "^2.2.5",
     "zod": "3.22.4"
   },
   "devDependencies": {

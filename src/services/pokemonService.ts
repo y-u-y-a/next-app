@@ -20,16 +20,27 @@ interface GetPokemonResponse {
 
 class PokemonService extends BaseService {
   /**
-   * ポケモン情報一覧を取得する
-   * offsetは取得したいデータの位置であり初期値は0
+   * ページネーションによるデータ取得をする
+   * 総データ数から、limitで分割した場合のtotalPageを取得する必要
    * */
-  async getAll(page: number): Promise<Pokemon[]> {
-    const limit = 20
-    const url = `https://pokeapi.co/api/v2/pokemon/?offset=${(page - 1) * limit}&limit=${limit}`
+  async getPagination(page = 1, pageSize = 20): Promise<{ page: number; totalPage: number; pokemons: Pokemon[] }> {
+    const offset = (page - 1) * pageSize // pokeAPIの仕様でoffset=0が初期値のため
+    const totalPage = 400 / pageSize // 400はダミー件数、ポケモン総数から算出する必要
+
+    const pokemons = await this.getAll(offset, pageSize)
+    return { page, totalPage, pokemons }
+  }
+  /**
+   * ポケモン情報一覧を取得する
+   * @param offset 何件目のデータから取得したいか
+   * @param limit offsetから何件取得するか
+   * */
+  private async getAll(offset: number, limit: number): Promise<Pokemon[]> {
+    const url = `https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=${limit}`
 
     const data: GetPokemonsResponse = await (
       await fetch(url, {
-        cache: "force-cache", // 「getStaticProps」next: { revalidate: false }
+        // cache: "force-cache", // 「getStaticProps」next: { revalidate: false }
         // cache: "no-store", // 「getServerSideProps」next: { revalidate: 0 }
         // next: { revalidate: 10 },
       })
