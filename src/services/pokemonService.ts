@@ -27,7 +27,13 @@ class PokemonService extends BaseService {
     const limit = 20
     const url = `https://pokeapi.co/api/v2/pokemon/?offset=${(page - 1) * limit}&limit=${limit}`
 
-    const data: GetPokemonsResponse = await (await fetch(url)).json()
+    const data: GetPokemonsResponse = await (
+      await fetch(url, {
+        cache: "force-cache", // 「getStaticProps」next: { revalidate: false }
+        // cache: "no-store", // 「getServerSideProps」next: { revalidate: 0 }
+        // next: { revalidate: 10 },
+      })
+    ).json()
     const pokemons = await Promise.all(data.results.map(async (pokemon) => await this.getDetail(pokemon.url)))
     return pokemons
   }
