@@ -17,13 +17,15 @@ export function Header(props: BoxProps) {
           </Anchor>
           <Group gap="md">
             <Group visibleFrom="md" gap="lg">
+              <Anchor mt={3} c="white" fw="bold" underline="never" component={Link} href={Routes.POKEMONS} children="ポケモン一覧" />
               <Anchor mt={3} c="white" fw="bold" underline="never" component={Link} href={Routes.COMPANIES} children="企業情報" />
             </Group>
 
             <Burger color="#fff" opened={showMenu} onClick={toggleMenu} />
             <Drawer position="right" opened={showMenu} onClose={toggleMenu}>
               <Stack gap="lg">
-                <Anchor underline="never" href={Routes.HOME} fw="bold" children="企業情報" />
+                <Anchor underline="never" href={Routes.POKEMONS} fw="bold" children="ポケモン一覧" />
+                <Anchor underline="never" href={Routes.COMPANIES} fw="bold" children="企業情報" />
               </Stack>
             </Drawer>
           </Group>
