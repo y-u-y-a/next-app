@@ -1,11 +1,26 @@
-import { Container, Title } from "@mantine/core"
+"use client"
 
-export default async function RootPage() {
+import { Button, Container, FileInput, Group } from "@mantine/core"
+import { useState } from "react"
+
+export default function RootPage() {
+  const [files, setFiles] = useState<File[]>([])
+
+  const handleChange = async (newFiles: File[]) => {
+    setFiles(newFiles)
+    const formData = new FormData()
+    newFiles.map((file) => formData.append("file", file))
+
+    // const uploadUrl = "https://example.com/upload"
+    // await fetch(uploadUrl, { method: "POST", body: formData })
+  }
+
   return (
     <Container py={40}>
-      <Title mb={40} size="h2" data-testid="root-page">
-        ホーム
-      </Title>
+      <Group>
+        <FileInput miw="400px" value={files} onChange={handleChange} multiple />
+        <Button children="アップロードする" />
+      </Group>
     </Container>
   )
 }

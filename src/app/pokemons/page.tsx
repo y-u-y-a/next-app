@@ -1,8 +1,8 @@
 import { pokemonService } from "@/services/pokemonService"
 import { Container, Title } from "@mantine/core"
 import type { Metadata } from "next"
+import { PaginationGroup } from "./PaginationGroup"
 import { PokemonList } from "./PokemonList"
-import { RootContainer } from "./container"
 
 interface Props {
   searchParams: {
@@ -25,8 +25,7 @@ export default async function RootPage({ searchParams: { page } }: Props) {
         ポケモン一覧
       </Title>
 
-      <RootContainer currentPage={currentPage} totalPage={totalPage} />
-
+      <PaginationGroup currentPage={currentPage} totalPage={totalPage} />
       <PokemonList pokemons={pokemons} />
     </Container>
   )
