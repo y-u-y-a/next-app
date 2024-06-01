@@ -1,26 +1,42 @@
 "use client"
 
 import { Button, Container, FileInput, Group } from "@mantine/core"
-import { useState } from "react"
+import { type FormEvent, useState } from "react"
 
 export default function RootPage() {
-  const [files, setFiles] = useState<File[]>([])
+  const [file, setFile] = useState<File | null>(null)
 
-  const handleChange = async (newFiles: File[]) => {
-    setFiles(newFiles)
-    const formData = new FormData()
-    newFiles.map((file) => formData.append("file", file))
+  const handleChange = async (newFile: File | null) => {
+    setFile(newFile)
+  }
 
-    // const uploadUrl = "https://example.com/upload"
-    // await fetch(uploadUrl, { method: "POST", body: formData })
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (!file) return
+
+    try {
+      const url = "https://upload.com"
+      const body = new FormData()
+      body.append("file", file)
+
+      const res = await fetch(url, { body, method: "PUT", headers: { "Content-Type": file.type } })
+      if (!res.ok) throw Error("アップロードに失敗しました")
+
+      alert("アップロード成功！")
+    } catch (error) {
+      console.error(error)
+      alert("アップロード失敗。。。")
+    }
   }
 
   return (
     <Container py={40}>
-      <Group>
-        <FileInput miw="400px" value={files} onChange={handleChange} multiple />
-        <Button children="アップロードする" />
-      </Group>
+      <form onSubmit={handleSubmit} noValidate>
+        <Group mb={20}>
+          <FileInput miw="400px" onChange={handleChange} />
+        </Group>
+        <Button type="submit" children="アップロードする" />
+      </form>
     </Container>
   )
 }
