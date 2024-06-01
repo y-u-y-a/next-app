@@ -6,6 +6,9 @@ declare module "*.module.css" {
 declare namespace NodeJS {
   interface ProcessEnv {
     readonly NODE_ENV: "development" | "production" | "test"
+
+    readonly TURSO_DATABASE_URL: string
+    readonly TURSO_AUTH_TOKEN: string
   }
 }
 

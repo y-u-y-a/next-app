@@ -1,0 +1,21 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("TURSO_DATABASE_URL")
+  // tursoとprismaのマイグレーションは未サポートのためローカルに対してマイグレーションファイルを生成する
+  // url      = "file:data/local.db"
+  // pnpx prisma migrate dev --name init
+  // turso db shell sandbox < ./prisma/migrations/202406xxxxx_init/migration.sql
+}
+
+model Company {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}

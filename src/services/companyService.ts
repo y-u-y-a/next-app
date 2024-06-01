@@ -4,13 +4,12 @@ import { BaseService } from "./baseService"
 class CompanyService extends BaseService {
   /** 企業情報一覧を取得する */
   async getAll(): Promise<Company[]> {
-    const { data } = await this.mock.GET("/companies")
-    if (!data) return []
+    const companies = await this.prisma.company.findMany()
 
-    return data.map((item) => ({
-      id: item.id,
-      name: item.name,
-      email: item.email,
+    return companies.map((company) => ({
+      id: company.id,
+      name: company.name,
+      email: company.email,
     }))
   }
 }
