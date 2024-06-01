@@ -13,9 +13,9 @@ const adapter = new PrismaLibSQL(turso)
 
 export class BaseService {
   protected api
-  protected prisma
+  protected db
   constructor() {
     this.api = createClient<paths>({ baseUrl: "https://api.sample.com/" })
-    this.prisma = new PrismaClient({ adapter })
+    this.db = new PrismaClient({ adapter })
   }
 }
