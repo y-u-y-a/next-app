@@ -1,0 +1,39 @@
+name: Deploy API Docs to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  publish-openapi-doc:
+    runs-on:
+      - ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.11.0 # pnpm version
+          run_install: false # 依存関係のインストールをスキップ
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install
+        run: pnpm install
+
+      - name: Generate API Docs
+        run: pnpm api
+
+      - name: Push gh-pages branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./openapi # デプロイするindex.htmlがあるディレクりを指定
+          # keep_files: true # git pushの度に一旦全てのファイルが削除される挙動を抑制できる
