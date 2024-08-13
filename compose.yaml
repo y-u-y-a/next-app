@@ -1,0 +1,18 @@
+services:
+  openapi-swagger:
+    container_name: openapi-swagger
+    image: swaggerapi/swagger-ui
+    volumes:
+      - ./openapi.json:/usr/share/nginx/html/openapi.json
+    environment:
+      API_URL: openapi.json
+    ports:
+      - 9000:8080
+  openapi-mock:
+    container_name: openapi-mock
+    image: stoplight/prism:4
+    command: mock -h 0.0.0.0 /openapi.json
+    ports:
+      - "8000:4010"
+    volumes:
+      - ./openapi.json:/openapi.json:ro

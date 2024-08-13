@@ -1,0 +1,110 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Sample API",
+    "description": "This is a sample API definition",
+    "version": "1.0.0"
+  },
+  "servers": [{ "url": "https://api.example.com/api/v1" }],
+  "paths": {
+    "/companies": {
+      "get": {
+        "summary": "企業情報を全件取得する",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Companies"
+                },
+                "examples": {
+                  "dummy": {
+                    "value": [
+                      { "id": 1, "name": "Amazon合同会社", "email": "amazon@example.com" },
+                      { "id": 2, "name": "SONY株式会社", "email": "sony@example.com" },
+                      { "id": 3, "name": "Facebook株式会社", "email": "facebook@example.com" },
+                      { "id": 4, "name": "dummy04株式会社", "email": "dummy05@example.com" },
+                      { "id": 5, "name": "dummy05株式会社", "email": "dummy05@example.com" },
+                      { "id": 6, "name": "dummy06株式会社", "email": "dummy06@example.com" },
+                      { "id": 7, "name": "dummy07株式会社", "email": "dummy07@example.com" },
+                      { "id": 8, "name": "dummy08株式会社", "email": "dummy08@example.com" },
+                      { "id": 9, "name": "dummy09株式会社", "email": "dummy09@example.com" },
+                      { "id": 10, "name": "dummy10株式会社", "email": "dummy10@example.com" },
+                      { "id": 11, "name": "dummy11株式会社", "email": "dummy11@example.com" },
+                      { "id": 12, "name": "dummy12株式会社", "email": "dummy12@example.com" },
+                      { "id": 13, "name": "dummy13株式会社", "email": "dummy13@example.com" },
+                      { "id": 14, "name": "dummy14株式会社", "email": "dummy14@example.com" },
+                      { "id": 15, "name": "dummy15株式会社", "email": "dummy15@example.com" },
+                      { "id": 16, "name": "dummy16株式会社", "email": "dummy16@example.com" },
+                      { "id": 17, "name": "dummy17株式会社", "email": "dummy17@example.com" },
+                      { "id": 18, "name": "dummy18株式会社", "email": "dummy18@example.com" },
+                      { "id": 19, "name": "dummy19株式会社", "email": "dummy19@example.com" },
+                      { "id": 20, "name": "dummy20株式会社", "email": "dummy20@example.com" },
+                      { "id": 21, "name": "dummy21株式会社", "email": "dummy21@example.com" },
+                      { "id": 22, "name": "dummy22株式会社", "email": "dummy22@example.com" },
+                      { "id": 23, "name": "dummy23株式会社", "email": "dummy23@example.com" }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Company": {
+        "type": "object",
+        "required": ["id", "name", "email"],
+        "properties": {
+          "id": { "type": "string", "title": "ID" },
+          "name": { "type": "string", "title": "企業名" },
+          "email": { "type": "string", "title": "メールアドレス" }
+        }
+      },
+      "Companies": {
+        "type": "array",
+        "items": { "$ref": "#/components/schemas/Company" }
+      }
+    },
+    "responses": {
+      "NotFoundError": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["error"],
+              "properties": {
+                "error": { "type": "string", "nullable": false }
+              }
+            }
+          }
+        }
+      },
+      "InternalServerError": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["error"],
+              "properties": {
+                "error": { "type": "string", "nullable": false }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
