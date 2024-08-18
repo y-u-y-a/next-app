@@ -1,6 +1,6 @@
 import { Errors } from "@/config/consts"
 import { describe, expect, test } from "vitest"
-import { type SearchCompanyFormInput, searchCompanyFormSchema } from "./companySearchSchema"
+import { type SearchCompanyFormInput, searchCompanyFormSchema } from "./companySchema"
 
 const correctInput: SearchCompanyFormInput = {
   name: "サンプル株式会社",
