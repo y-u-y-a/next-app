@@ -23,7 +23,7 @@ class PokemonService extends BaseService {
    * ページネーションによるデータ取得をする
    * 総データ数から、limitで分割した場合のtotalPageを取得する必要
    * */
-  async getPagination(page = 1, pageSize = 20): Promise<{ page: number; totalPage: number; pokemons: Pokemon[] }> {
+  async getByPaging(page = 1, pageSize = 20): Promise<{ page: number; totalPage: number; pokemons: Pokemon[] }> {
     const offset = (page - 1) * pageSize // pokeAPIの仕様でoffset=0が初期値のため
     const totalPage = 400 / pageSize // 400はダミー件数、ポケモン総数から算出する必要
 

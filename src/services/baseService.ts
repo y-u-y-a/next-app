@@ -30,8 +30,8 @@ export class BaseService {
     return {
       paginate,
       currentPage,
-      total: items.length,
       totalPages: newItemsList.length,
+      total: items.length,
       items: currentItems,
     }
   }

@@ -25,7 +25,7 @@ interface Props {
 
 export default async function CompaniesPage({ searchParams: { page, email } }: Props) {
   const currentPage = Number(page) || 1
-  const { items: companies, totalPages } = await companyService.getPagination(currentPage, email || "")
+  const { items: companies, totalPages } = await companyService.getByPaging(currentPage, email || "")
 
   return (
     <Container>

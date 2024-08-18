@@ -1,61 +1,70 @@
 {
   "openapi": "3.0.0",
   "info": {
+    "version": "1.0.0",
     "title": "Sample API",
-    "description": "This is a sample API definition",
-    "version": "1.0.0"
+    "description": "This is a sample API definition"
   },
   "servers": [{ "url": "https://api.example.com/api/v1" }],
   "paths": {
-    "/companies": {
+    "/user/{userId}": {
       "get": {
-        "summary": "企業情報を全件取得する",
+        "tags": ["User"],
+        "summary": "User取得",
+        "description": "登録されているユーザーを一覧で取得します。",
+        "security": [{ "Bearer": [] }],
+        "parameters": [{ "$ref": "#/components/parameters/UserId" }],
         "responses": {
           "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Companies"
-                },
-                "examples": {
-                  "dummy": {
-                    "value": [
-                      { "id": 1, "name": "Amazon合同会社", "email": "amazon@example.com" },
-                      { "id": 2, "name": "SONY株式会社", "email": "sony@example.com" },
-                      { "id": 3, "name": "Facebook株式会社", "email": "facebook@example.com" },
-                      { "id": 4, "name": "dummy04株式会社", "email": "dummy05@example.com" },
-                      { "id": 5, "name": "dummy05株式会社", "email": "dummy05@example.com" },
-                      { "id": 6, "name": "dummy06株式会社", "email": "dummy06@example.com" },
-                      { "id": 7, "name": "dummy07株式会社", "email": "dummy07@example.com" },
-                      { "id": 8, "name": "dummy08株式会社", "email": "dummy08@example.com" },
-                      { "id": 9, "name": "dummy09株式会社", "email": "dummy09@example.com" },
-                      { "id": 10, "name": "dummy10株式会社", "email": "dummy10@example.com" },
-                      { "id": 11, "name": "dummy11株式会社", "email": "dummy11@example.com" },
-                      { "id": 12, "name": "dummy12株式会社", "email": "dummy12@example.com" },
-                      { "id": 13, "name": "dummy13株式会社", "email": "dummy13@example.com" },
-                      { "id": 14, "name": "dummy14株式会社", "email": "dummy14@example.com" },
-                      { "id": 15, "name": "dummy15株式会社", "email": "dummy15@example.com" },
-                      { "id": 16, "name": "dummy16株式会社", "email": "dummy16@example.com" },
-                      { "id": 17, "name": "dummy17株式会社", "email": "dummy17@example.com" },
-                      { "id": 18, "name": "dummy18株式会社", "email": "dummy18@example.com" },
-                      { "id": 19, "name": "dummy19株式会社", "email": "dummy19@example.com" },
-                      { "id": 20, "name": "dummy20株式会社", "email": "dummy20@example.com" },
-                      { "id": 21, "name": "dummy21株式会社", "email": "dummy21@example.com" },
-                      { "id": 22, "name": "dummy22株式会社", "email": "dummy22@example.com" },
-                      { "id": 23, "name": "dummy23株式会社", "email": "dummy23@example.com" },
-                      { "id": 24, "name": "dummy24株式会社", "email": "dummy24@example.com" }
-                    ]
-                  }
-                }
-              }
-            }
+            "$ref": "#/components/responses/GetUserResponse"
           },
           "404": {
-            "$ref": "#/components/responses/NotFoundError"
+            "$ref": "#/components/responses/NotFoundErrorResponse"
           },
           "500": {
-            "$ref": "#/components/responses/InternalServerError"
+            "$ref": "#/components/responses/InternalServerErrorResponse"
+          }
+        }
+      }
+    },
+    "/user": {
+      "post": {
+        "tags": ["User"],
+        "summary": "User登録",
+        "description": "ユーザーを登録します。",
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/CreateUserRequestBody"
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/CreateUserResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundErrorResponse"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerErrorResponse"
+          }
+        }
+      }
+    },
+    "/companies": {
+      "get": {
+        "tags": ["Company"],
+        "summary": "Company一覧取得",
+        "description": "登録されているCompanyをページネーション取得します。",
+        "security": [{ "Bearer": [] }],
+        "parameters": [{ "$ref": "#/components/parameters/CurrentPage" }, { "$ref": "#/components/parameters/Paginate" }],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/GetCompaniesResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundErrorResponse"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerErrorResponse"
           }
         }
       }
@@ -63,6 +72,25 @@
   },
   "components": {
     "schemas": {
+      "Paging": {
+        "type": "object",
+        "required": ["totalPages", "currentPage", "paginate", "total"],
+        "properties": {
+          "totalPages": { "type": "integer", "title": "総ページ数" },
+          "currentPage": { "type": "integer", "title": "取得したページ" },
+          "paginate": { "type": "integer", "title": "ページ毎の表示件数" },
+          "total": { "type": "integer", "title": "アイテムの総数" }
+        }
+      },
+      "User": {
+        "type": "object",
+        "required": ["id", "name", "email"],
+        "properties": {
+          "id": { "type": "string", "title": "ID" },
+          "name": { "type": "string", "title": "ユーザー名" },
+          "email": { "type": "string", "title": "メールアドレス" }
+        }
+      },
       "Company": {
         "type": "object",
         "required": ["id", "name", "email"],
@@ -77,34 +105,178 @@
         "items": { "$ref": "#/components/schemas/Company" }
       }
     },
-    "responses": {
-      "NotFoundError": {
+    "parameters": {
+      "CurrentPage": {
+        "name": "currentPage",
+        "in": "query",
+        "required": false,
+        "description": "現在のページ番号（1〜）",
+        "schema": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "Paginate": {
+        "name": "paginate",
+        "in": "query",
+        "required": false,
+        "description": "ページ毎の表示件数",
+        "schema": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "UserId": {
+        "in": "path",
+        "name": "userId",
+        "description": "取得したいユーザーIDを指定します。",
+        "required": true,
+        "schema": { "type": "string" }
+      }
+    },
+    "requestBodies": {
+      "CreateUserRequestBody": {
+        "required": true,
         "description": "",
         "content": {
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["error"],
+              "required": ["name", "email"],
               "properties": {
-                "error": { "type": "string", "nullable": false }
+                "name": { "type": "string", "title": "ユーザー名" },
+                "email": { "type": "string", "title": "メールアドレス" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "GetUserResponse": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/User"
+            },
+            "examples": {
+              "dummy": {
+                "value": { "id": 1, "name": "テスト太郎", "email": "test.taro@example.com" }
               }
             }
           }
         }
       },
-      "InternalServerError": {
+      "CreateUserResponse": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/User"
+            },
+            "examples": {
+              "dummy": {
+                "value": { "id": 1, "name": "テスト太郎", "email": "test.taro@example.com" }
+              }
+            }
+          }
+        }
+      },
+      "GetCompaniesResponse": {
         "description": "",
         "content": {
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["error"],
+              "required": ["companies", "paging"],
               "properties": {
-                "error": { "type": "string", "nullable": false }
+                "companies": {
+                  "$ref": "#/components/schemas/Companies"
+                },
+                "paging": {
+                  "$ref": "#/components/schemas/Paging"
+                }
+              }
+            },
+            "examples": {
+              "dummy": {
+                "value": {
+                  "companies": [
+                    { "id": 1, "name": "Amazon合同会社", "email": "amazon@example.com" },
+                    { "id": 2, "name": "SONY株式会社", "email": "sony@example.com" },
+                    { "id": 3, "name": "Facebook株式会社", "email": "facebook@example.com" },
+                    { "id": 4, "name": "dummy04株式会社", "email": "dummy05@example.com" },
+                    { "id": 5, "name": "dummy05株式会社", "email": "dummy05@example.com" },
+                    { "id": 6, "name": "dummy06株式会社", "email": "dummy06@example.com" },
+                    { "id": 7, "name": "dummy07株式会社", "email": "dummy07@example.com" },
+                    { "id": 8, "name": "dummy08株式会社", "email": "dummy08@example.com" },
+                    { "id": 9, "name": "dummy09株式会社", "email": "dummy09@example.com" },
+                    { "id": 10, "name": "dummy10株式会社", "email": "dummy10@example.com" },
+                    { "id": 11, "name": "dummy11株式会社", "email": "dummy11@example.com" },
+                    { "id": 12, "name": "dummy12株式会社", "email": "dummy12@example.com" },
+                    { "id": 13, "name": "dummy13株式会社", "email": "dummy13@example.com" },
+                    { "id": 14, "name": "dummy14株式会社", "email": "dummy14@example.com" },
+                    { "id": 15, "name": "dummy15株式会社", "email": "dummy15@example.com" },
+                    { "id": 16, "name": "dummy16株式会社", "email": "dummy16@example.com" },
+                    { "id": 17, "name": "dummy17株式会社", "email": "dummy17@example.com" },
+                    { "id": 18, "name": "dummy18株式会社", "email": "dummy18@example.com" },
+                    { "id": 19, "name": "dummy19株式会社", "email": "dummy19@example.com" },
+                    { "id": 20, "name": "dummy20株式会社", "email": "dummy20@example.com" },
+                    { "id": 21, "name": "dummy21株式会社", "email": "dummy21@example.com" },
+                    { "id": 22, "name": "dummy22株式会社", "email": "dummy22@example.com" },
+                    { "id": 23, "name": "dummy23株式会社", "email": "dummy23@example.com" },
+                    { "id": 24, "name": "dummy24株式会社", "email": "dummy24@example.com" }
+                  ],
+                  "paging": {
+                    "totalPages": "21",
+                    "currentPage": 1,
+                    "paginate": 5,
+                    "total": 108
+                  }
+                }
               }
             }
           }
         }
+      },
+      "NotFoundErrorResponse": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["code"],
+              "properties": {
+                "code": { "type": "integer", "description": "ステータスコード", "nullable": false, "example": 404 },
+                "message": { "type": "string", "description": "エラーメッセージ", "nullable": false, "example": "Not found resource." }
+              }
+            }
+          }
+        }
+      },
+      "InternalServerErrorResponse": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["code"],
+              "properties": {
+                "code": { "type": "integer", "description": "ステータスコード", "nullable": false, "example": 500 },
+                "message": { "type": "string", "description": "エラーメッセージ", "nullable": false, "example": "Server error." }
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Bearerトークンによる認証です",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

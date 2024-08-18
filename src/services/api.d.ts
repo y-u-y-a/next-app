@@ -5,17 +5,54 @@
 
 
 export interface paths {
-  "/companies": {
-    /** 企業情報を全件取得する */
+  "/user/{userId}": {
+    /**
+     * User取得
+     * @description 登録されているユーザーを一覧で取得します。
+     */
     get: {
-      responses: {
-        200: {
-          content: {
-            "application/json": components["schemas"]["Companies"];
-          };
+      parameters: {
+        path: {
+          userId: components["parameters"]["UserId"];
         };
-        404: components["responses"]["NotFoundError"];
-        500: components["responses"]["InternalServerError"];
+      };
+      responses: {
+        200: components["responses"]["GetUserResponse"];
+        404: components["responses"]["NotFoundErrorResponse"];
+        500: components["responses"]["InternalServerErrorResponse"];
+      };
+    };
+  };
+  "/user": {
+    /**
+     * User登録
+     * @description ユーザーを登録します。
+     */
+    post: {
+      requestBody: components["requestBodies"]["CreateUserRequestBody"];
+      responses: {
+        200: components["responses"]["CreateUserResponse"];
+        404: components["responses"]["NotFoundErrorResponse"];
+        500: components["responses"]["InternalServerErrorResponse"];
+      };
+    };
+  };
+  "/companies": {
+    /**
+     * Company一覧取得
+     * @description 登録されているCompanyをページネーション取得します。
+     */
+    get: {
+      parameters: {
+        query?: {
+          currentPage?: components["parameters"]["CurrentPage"];
+          paginate?: components["parameters"]["Paginate"];
+        };
+      };
+      responses: {
+        200: components["responses"]["GetCompaniesResponse"];
+        404: components["responses"]["NotFoundErrorResponse"];
+        500: components["responses"]["InternalServerErrorResponse"];
       };
     };
   };
@@ -25,6 +62,24 @@ export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
+    Paging: {
+      /** 総ページ数 */
+      totalPages: number;
+      /** 取得したページ */
+      currentPage: number;
+      /** ページ毎の表示件数 */
+      paginate: number;
+      /** アイテムの総数 */
+      total: number;
+    };
+    User: {
+      /** ID */
+      id: string;
+      /** ユーザー名 */
+      name: string;
+      /** メールアドレス */
+      email: string;
+    };
     Company: {
       /** ID */
       id: string;
@@ -36,23 +91,77 @@ export interface components {
     Companies: components["schemas"]["Company"][];
   };
   responses: {
-    NotFoundError: {
+    GetUserResponse: {
+      content: {
+        "application/json": components["schemas"]["User"];
+      };
+    };
+    CreateUserResponse: {
+      content: {
+        "application/json": components["schemas"]["User"];
+      };
+    };
+    GetCompaniesResponse: {
       content: {
         "application/json": {
-          error: string;
+          companies: components["schemas"]["Companies"];
+          paging: components["schemas"]["Paging"];
         };
       };
     };
-    InternalServerError: {
+    NotFoundErrorResponse: {
       content: {
         "application/json": {
-          error: string;
+          /**
+           * @description ステータスコード
+           * @example 404
+           */
+          code: number;
+          /**
+           * @description エラーメッセージ
+           * @example Not found resource.
+           */
+          message?: string;
+        };
+      };
+    };
+    InternalServerErrorResponse: {
+      content: {
+        "application/json": {
+          /**
+           * @description ステータスコード
+           * @example 500
+           */
+          code: number;
+          /**
+           * @description エラーメッセージ
+           * @example Server error.
+           */
+          message?: string;
         };
       };
     };
   };
-  parameters: never;
-  requestBodies: never;
+  parameters: {
+    /** @description 現在のページ番号（1〜） */
+    CurrentPage?: number;
+    /** @description ページ毎の表示件数 */
+    Paginate?: number;
+    /** @description 取得したいユーザーIDを指定します。 */
+    UserId: string;
+  };
+  requestBodies: {
+    CreateUserRequestBody: {
+      content: {
+        "application/json": {
+          /** ユーザー名 */
+          name: string;
+          /** メールアドレス */
+          email: string;
+        };
+      };
+    };
+  };
   headers: never;
   pathItems: never;
 }
