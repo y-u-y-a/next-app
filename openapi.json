@@ -12,7 +12,6 @@
         "tags": ["User"],
         "summary": "User取得",
         "description": "登録されているユーザーを一覧で取得します。",
-        "security": [{ "Bearer": [] }],
         "parameters": [{ "$ref": "#/components/parameters/UserId" }],
         "responses": {
           "200": {
@@ -32,7 +31,6 @@
         "tags": ["User"],
         "summary": "User登録",
         "description": "ユーザーを登録します。",
-        "security": [{ "Bearer": [] }],
         "requestBody": {
           "$ref": "#/components/requestBodies/CreateUserRequestBody"
         },
@@ -54,7 +52,6 @@
         "tags": ["Company"],
         "summary": "Company一覧取得",
         "description": "登録されているCompanyをページネーション取得します。",
-        "security": [{ "Bearer": [] }],
         "parameters": [{ "$ref": "#/components/parameters/CurrentPage" }, { "$ref": "#/components/parameters/Paginate" }],
         "responses": {
           "200": {
@@ -177,7 +174,7 @@
             },
             "examples": {
               "dummy": {
-                "value": { "id": 1, "name": "テスト太郎", "email": "test.taro@example.com" }
+                "value": { "id": "A0001", "name": "テスト太郎", "email": "test.taro@example.com" }
               }
             }
           }
@@ -274,9 +271,8 @@
     "securitySchemes": {
       "Bearer": {
         "type": "http",
-        "description": "Bearerトークンによる認証です",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
+        "scheme": "Bearer",
+        "description": "Bearerトークンによる認証です。"
       }
     }
   }

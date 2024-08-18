@@ -11,8 +11,14 @@ export type Pagination<T> = {
 
 export class BaseService {
   protected api
+
   constructor() {
-    this.api = createClient<paths>({ baseUrl: global.process.env.API_URL })
+    this.api = createClient<paths>({
+      baseUrl: global.process.env.API_URL,
+      headers: {
+        Authorization: `Bearer ${process.env.API_TOKEN || ""}`,
+      },
+    })
   }
 
   /**
