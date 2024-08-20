@@ -9,11 +9,11 @@ interface Props extends GroupProps {
 }
 
 export const PaginationGroup = ({ currentPage, totalPage, ...props }: Props) => {
-  const { changeQueryParams } = useChangeQueryParams("page")
+  const { paginateQueryParams } = useChangeQueryParams()
 
   return (
     <Group mb={20} justify="flex-end" {...props}>
-      <Pagination color="teal" total={totalPage} value={currentPage} onChange={changeQueryParams} />
+      <Pagination color="teal" total={totalPage} value={currentPage} onChange={paginateQueryParams} />
     </Group>
   )
 }

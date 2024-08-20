@@ -8,7 +8,7 @@ import { notifications } from "@mantine/notifications"
 import { IconCheck, IconX } from "@tabler/icons-react"
 
 export const SearchCompanyForm = () => {
-  const { overwriteQueryParams } = useChangeQueryParams("email")
+  const { overwriteQueryParams, clearQueryParams } = useChangeQueryParams()
 
   const form = useForm<SearchCompanyFormInput>({
     validate: zodResolver(searchCompanyFormSchema),
@@ -21,7 +21,7 @@ export const SearchCompanyForm = () => {
   /** 検索する */
   const searchCompany = async (input: SearchCompanyFormInput) => {
     try {
-      overwriteQueryParams(input.email)
+      overwriteQueryParams([`email=${input.email}`, `name=${input.name}`])
       notifications.show({ title: "Success！", message: "", color: "teal", icon: <IconCheck size="1.2rem" /> })
     } catch (error) {
       console.error({ error })
@@ -40,8 +40,8 @@ export const SearchCompanyForm = () => {
             </Group>
             <Checkbox {...form.getInputProps("isIncludeCanceled")} label="未契約企業も含める" />
             <Flex gap="md" align="center">
-              <Button variant="filled" type="submit" children="検索" />
-              <Button variant="outline" type="submit" children="クリア" />
+              <Button children="検索" variant="filled" type="submit" />
+              <Button children="クリア" variant="outline" onClick={clearQueryParams} />
             </Flex>
           </Stack>
         </form>

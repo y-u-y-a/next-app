@@ -4,24 +4,40 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 /**
  * クエリパラメータを変更するhooks
- * @example useChangeQueryParams("page") "page"は操作するクエリパラメータ
  * */
-export const useChangeQueryParams = (newQueryParams: string) => {
+export const useChangeQueryParams = () => {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  /** 既存のクエリパラメータを変更する */
-  const changeQueryParams = (newPage: string | number) => {
+  /** "page="のみを変更する */
+  const paginateQueryParams = (newPage: string | number) => {
     const params = new URLSearchParams(searchParams.toString())
-    params.set(newQueryParams, newPage.toString())
+    params.set("page", newPage.toString())
     router.replace(`${pathname}?${params.toString()}`)
   }
 
-  /** 既存のクエリパラメータを上書きする */
-  const overwriteQueryParams = (keyword: string) => {
-    router.replace(`${pathname}?${newQueryParams}=${keyword}`)
+  /** 特定のクエリのみを変更する */
+  const changeQueryParams = (newQueryParam: string, value: string) => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set(newQueryParam, value)
+    router.replace(`${pathname}?${params.toString()}`)
   }
 
-  return { changeQueryParams, overwriteQueryParams }
+  /**
+   * @summary 既存のクエリパラメータを全て上書きする
+   * @description 検索処理などクエリを最新化する際に使用する
+   * */
+  const overwriteQueryParams = (QueryParams: `${string}=${string}`[]) => {
+    router.replace(`${pathname}?${QueryParams.join("&")}`)
+  }
+
+  /**
+   * @summary 既存のクエリパラメータを全て削除する
+   * */
+  const clearQueryParams = () => {
+    router.replace(pathname)
+  }
+
+  return { paginateQueryParams, changeQueryParams, overwriteQueryParams, clearQueryParams }
 }
