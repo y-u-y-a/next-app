@@ -7,6 +7,7 @@ declare namespace NodeJS {
   interface ProcessEnv {
     readonly NODE_ENV: "development" | "production" | "test"
     readonly API_URL: string
+    readonly NEXT_PUBLIC_GOOGLE_MAP_API_KEY: string
   }
 }
 

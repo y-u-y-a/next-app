@@ -4,6 +4,7 @@ export const Routes = {
   HOME: "/",
   POKEMONS: "/pokemons",
   COMPANIES: "/companies",
+  ROOMS: "/rooms",
 } as const
 
 export const Images = {
