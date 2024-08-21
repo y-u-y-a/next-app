@@ -6,7 +6,7 @@
     "node": "18"
   },
   "scripts": {
-    "dev": "concurrently -n \"web,mock\" -c \"bgGreen.bold,bgBlue.bold\" \"next dev\" \"pnpm api:mock\"",
+    "dev": "concurrently -n \"web,mock\" -c \"bgGreen.bold,bgBlue.bold\" \"next dev\" \"pnpm mock\"",
     "build": "next build",
     "start": "next start",
     "prod": "pnpm build && pnpm start",
@@ -14,8 +14,8 @@
     "fmt": "pnpm biome format --write ./src",
     "test": "VITE_CJS_IGNORE_WARNING=true vitest run",
     "test:watch": "VITE_CJS_IGNORE_WARNING=true vitest watch",
-    "api": "openapi-typescript ./openapi.json --output ./src/services/api.d.ts && npx @redocly/cli build-docs ./openapi.json -o ./openapi/index.html",
-    "api:mock": "prism mock ./openapi.json --port 8000"
+    "api": "openapi-typescript ./openapi/schema.json --output ./src/services/api.d.ts && npx @redocly/cli build-docs ./openapi/schema.json -o ./openapi/index.html",
+    "mock": "prism mock ./openapi/schema.json --port 8000"
   },
   "dependencies": {
     "@mantine/core": "7.3.2",
