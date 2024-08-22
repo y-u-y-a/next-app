@@ -18,6 +18,15 @@ interface GetPokemonResponse {
   }
 }
 
+interface GetPokemonSpeciesResponse {
+  names: {
+    name: string
+    language: {
+      name: string
+    }
+  }[]
+}
+
 class PokemonService extends BaseService {
   /**
    * ページネーションによるデータ取得をする
@@ -25,7 +34,7 @@ class PokemonService extends BaseService {
    * */
   async getByPaging(currentPage: number): Promise<Pagination<Pokemon>> {
     const paginate = 24 // ページあたり件数
-    const total = 400 // 400はダミー件数
+    const total = 1025 // ダミー件数
     const offset = (currentPage - 1) * paginate // pokeAPIの仕様でoffset=0が初期値のため
     const totalPages = total / paginate // ポケモン総数から算出する必要
 
@@ -60,7 +69,7 @@ class PokemonService extends BaseService {
   /** ポケモン名を日本語に変換する */
   private async toJapaneseName(enName: string): Promise<string> {
     const url = `https://pokeapi.co/api/v2/pokemon-species/${enName.toLowerCase()}`
-    const { names }: { names: { language: { name: string }; name: string }[] } = await (await fetch(url)).json()
+    const { names }: GetPokemonSpeciesResponse = await (await fetch(url)).json()
     const japaneseName = names.find((nameInfo) => nameInfo.language.name === "ja-Hrkt")?.name || "？？？"
     return japaneseName
   }
