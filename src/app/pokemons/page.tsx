@@ -15,14 +15,14 @@ export const metadata: Metadata = {
   description: "現在図鑑に登録されているポケモン一覧です。",
 }
 
-export default async function RootPage({ searchParams: { page } }: Props) {
-  const currentPage = Number(page) || 1
-  const { pokemons, totalPage } = await pokemonService.getByPaging(currentPage)
+export default async function RootPage({ searchParams }: Props) {
+  const currentPage = Number(searchParams.page) || 1
+  const { items: pokemons, totalPages } = await pokemonService.getByPaging(currentPage)
 
   return (
     <Container py={40}>
       <Title mb={40} size="h2" data-testid="root-page" children="ポケモン一覧" />
-      <PaginationGroup currentPage={currentPage} totalPage={totalPage} />
+      <PaginationGroup currentPage={currentPage} totalPage={totalPages} />
       <PokemonList pokemons={pokemons} />
     </Container>
   )

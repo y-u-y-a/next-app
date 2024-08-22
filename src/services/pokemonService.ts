@@ -1,5 +1,5 @@
 import type { Pokemon } from "@/domain/pokemon/types"
-import { BaseService } from "./baseService"
+import { BaseService, type Pagination } from "./baseService"
 
 interface GetPokemonsResponse {
   results: {
@@ -23,12 +23,14 @@ class PokemonService extends BaseService {
    * ページネーションによるデータ取得をする
    * 総データ数から、limitで分割した場合のtotalPageを取得する必要
    * */
-  async getByPaging(page = 1, pageSize = 20): Promise<{ page: number; totalPage: number; pokemons: Pokemon[] }> {
-    const offset = (page - 1) * pageSize // pokeAPIの仕様でoffset=0が初期値のため
-    const totalPage = 400 / pageSize // 400はダミー件数、ポケモン総数から算出する必要
+  async getByPaging(currentPage: number): Promise<Pagination<Pokemon>> {
+    const paginate = 24 // ページあたり件数
+    const total = 400 // 400はダミー件数
+    const offset = (currentPage - 1) * paginate // pokeAPIの仕様でoffset=0が初期値のため
+    const totalPages = total / paginate // ポケモン総数から算出する必要
 
-    const pokemons = await this.getAll(offset, pageSize)
-    return { page, totalPage, pokemons }
+    const items = await this.getAll(offset, paginate)
+    return { total, paginate, currentPage, totalPages, items }
   }
   /**
    * ポケモン情報一覧を取得する
@@ -37,14 +39,7 @@ class PokemonService extends BaseService {
    * */
   private async getAll(offset: number, limit: number): Promise<Pokemon[]> {
     const url = `https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=${limit}`
-
-    const data: GetPokemonsResponse = await (
-      await fetch(url, {
-        // cache: "force-cache", // 「getStaticProps」next: { revalidate: false }
-        // cache: "no-store", // 「getServerSideProps」next: { revalidate: 0 }
-        // next: { revalidate: 10 },
-      })
-    ).json()
+    const data: GetPokemonsResponse = await (await fetch(url)).json()
     const pokemons = await Promise.all(data.results.map(async (pokemon) => await this.getDetail(pokemon.url)))
     return pokemons
   }
@@ -52,13 +47,22 @@ class PokemonService extends BaseService {
   /** ポケモン詳細情報を取得する */
   private async getDetail(url: string): Promise<Pokemon> {
     const data: GetPokemonResponse = await (await fetch(url)).json()
+
     return {
       id: data.id,
-      name: data.name,
+      name: await this.toJapaneseName(data.name),
       weight: data.weight,
       image: data.sprites.front_default,
       shinyImage: data.sprites.front_shiny,
     }
+  }
+
+  /** ポケモン名を日本語に変換する */
+  private async toJapaneseName(enName: string): Promise<string> {
+    const url = `https://pokeapi.co/api/v2/pokemon-species/${enName.toLowerCase()}`
+    const { names }: { names: { language: { name: string }; name: string }[] } = await (await fetch(url)).json()
+    const japaneseName = names.find((nameInfo) => nameInfo.language.name === "ja-Hrkt")?.name || "？？？"
+    return japaneseName
   }
 }
 

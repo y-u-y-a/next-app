@@ -11,13 +11,13 @@ export function PokemonList({ pokemons }: Props) {
     <>
       <Grid>
         {pokemons.map((pokemon) => (
-          <GridCol span={{ base: 12, xs: 6, sm: 4, md: 3 }} key={pokemon.id}>
-            <Card component={Link} href={pokemon.image} target="_blank" withBorder>
+          <GridCol span={{ base: 6, xs: 3, sm: 2, md: 1.5 }} key={pokemon.id}>
+            <Card py={0} component={Link} href={pokemon.image} target="_blank" withBorder>
               <CardSection>
                 <Image src={pokemon.image} alt={pokemon.name} />
               </CardSection>
-              <Text fw="bold" ta="center" children={pokemon.name} lineClamp={2} />
             </Card>
+            <Text fw="bold" ta="center" children={pokemon.name} lineClamp={2} />
           </GridCol>
         ))}
       </Grid>
