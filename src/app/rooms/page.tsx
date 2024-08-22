@@ -1,4 +1,4 @@
-import { Center } from "@mantine/core"
+import { Flex } from "@mantine/core"
 import type { Metadata } from "next/types"
 import { RoomsMap } from "./RoomsMap"
 
@@ -9,8 +9,10 @@ export const metadata: Metadata = {
 
 export default function RoomsPage() {
   return (
-    <Center>
-      <RoomsMap />
-    </Center>
+    <>
+      <Flex justify="right">
+        <RoomsMap />
+      </Flex>
+    </>
   )
 }
