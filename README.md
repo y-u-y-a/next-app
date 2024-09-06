@@ -2,11 +2,11 @@
 
 ## Product Infomation
 
-| environment | URL                           |
-| ----------- | ----------------------------- |
-| Production  | https://sample.vercel.app     |
-| Staging     | https://sample-stg.vercel.app |
-| Development | https://sample-dev.vercel.app |
+| environment | URL                             |
+| ----------- | ------------------------------- |
+| Production  | https://next-app.vercel.app     |
+| Staging     | https://next-app-stg.vercel.app |
+| Development | https://next-app-dev.vercel.app |
 
 ## Using Technologies
 

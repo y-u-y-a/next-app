@@ -29,7 +29,7 @@ jobs:
         run: pnpm install
 
       - name: Generate API Docs
-        run: pnpm api
+        run: pnpm api:gen
 
       - name: Push gh-pages branch
         uses: peaceiris/actions-gh-pages@v3

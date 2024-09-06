@@ -27,7 +27,11 @@ export const MantineUIProvider = ({ children }: { children: ReactNode }) => {
         fontFamily: "Noto Sans JP, sans-serif",
         components: {
           Container: Container.extend({
-            defaultProps: { size: "lg" },
+            defaultProps: {
+              size: "lg", // 1140px, p:16px
+              // maw: 1140,
+              // px: 16,
+            },
           }),
           Anchor: Anchor.extend({
             defaultProps: { c: "#4484BC", underline: "always" },

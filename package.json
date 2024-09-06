@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "sample",
+  "name": "next-app",
   "version": "1.0.0",
   "engines": {
     "node": "18"
@@ -14,7 +14,8 @@
     "fmt": "pnpm biome format --write ./src",
     "test": "VITE_CJS_IGNORE_WARNING=true vitest run",
     "test:watch": "VITE_CJS_IGNORE_WARNING=true vitest watch",
-    "api": "openapi-typescript ./openapi/schema.json --output ./src/services/api.d.ts && npx @redocly/cli build-docs ./openapi/schema.json -o ./openapi/index.html && open ./openapi/index.html",
+    "api": "pnpm api:gen && open ./openapi/index.html",
+    "api:gen": "openapi-typescript ./openapi/schema.json -o ./src/services/api.d.ts && npx @redocly/cli build-docs ./openapi/schema.json -o ./openapi/index.html",
     "mock": "prism mock ./openapi/schema.json --port 8000"
   },
   "dependencies": {
