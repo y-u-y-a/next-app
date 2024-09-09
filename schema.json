@@ -2,8 +2,8 @@
   "openapi": "3.0.0",
   "info": {
     "version": "1.0.0",
-    "title": "Sample API",
-    "description": "This is a sample API definition"
+    "title": "NextApp API",
+    "description": "This is a NextApp API definition"
   },
   "servers": [{ "url": "https://api.example.com/api/v1" }],
   "paths": {
