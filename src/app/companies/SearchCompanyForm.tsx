@@ -1,6 +1,6 @@
 "use client"
 
-import { type SearchCompanyFormInput, searchCompanyFormSchema } from "@/domain/company/companySchema"
+import { type SearchCompanyFormInput, searchCompanyFormSchema } from "@/features/company/companySchema"
 import { useChangeQueryParams } from "@/hooks/useChangeQueryParams"
 import { Button, Checkbox, Flex, Group, Paper, Stack, TextInput } from "@mantine/core"
 import { useForm, zodResolver } from "@mantine/form"

@@ -1,4 +1,4 @@
-import type { User } from "@/domain/user/types"
+import type { User } from "@/features/user/types"
 import { BaseService } from "./baseService"
 
 class UserService extends BaseService {

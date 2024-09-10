@@ -1,7 +1,7 @@
 "use client"
 
-import { createUserAction } from "@/domain/user/actions"
-import { type CreateUserFormInput, createUserFormSchema } from "@/domain/user/userSchema"
+import { createUserAction } from "@/features/user/actions"
+import { type CreateUserFormInput, createUserFormSchema } from "@/features/user/userSchema"
 import { Button, Flex, Paper, type PaperProps, Stack, TextInput } from "@mantine/core"
 import { useForm, zodResolver } from "@mantine/form"
 

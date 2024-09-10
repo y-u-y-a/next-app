@@ -1,4 +1,4 @@
-import type { Company } from "@/domain/company/types"
+import type { Company } from "@/features/company/types"
 import { BaseService, type Pagination } from "./baseService"
 
 class CompanyService extends BaseService {

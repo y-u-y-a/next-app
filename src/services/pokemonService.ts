@@ -1,4 +1,4 @@
-import type { Pokemon } from "@/domain/pokemon/types"
+import type { Pokemon } from "@/features/pokemon/types"
 import { BaseService, type Pagination } from "./baseService"
 
 interface GetPokemonsResponse {

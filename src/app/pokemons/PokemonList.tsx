@@ -1,4 +1,4 @@
-import type { Pokemon } from "@/domain/pokemon/types"
+import type { Pokemon } from "@/features/pokemon/types"
 import { Card, CardSection, Grid, GridCol, Image, Text } from "@mantine/core"
 import Link from "next/link"
 
