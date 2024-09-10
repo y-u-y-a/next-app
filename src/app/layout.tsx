@@ -1,7 +1,7 @@
 import { Footer } from "@/components/templates/Footer"
 import { Header } from "@/components/templates/Header"
 import { APP_TITLE } from "@/config/consts"
-import { MantineUIProvider } from "@/config/mantine/mantine"
+import { MantineUIProvider } from "@/config/mantine"
 import { Box, Stack } from "@mantine/core"
 import type { Metadata } from "next"
 

@@ -1,6 +1,6 @@
 export const APP_TITLE = "NextApp"
 
-export const Routes = {
+export const Paths = {
   HOME: "/",
   POKEMONS: "/pokemons",
   COMPANIES: "/companies",

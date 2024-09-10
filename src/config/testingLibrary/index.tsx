@@ -1,6 +1,6 @@
 import { render as testingLibraryRender } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { MantineUIProvider } from "../mantine/mantine"
+import { MantineUIProvider } from "../mantine"
 
 /**
  * @see https://mantine.dev/guides/vitest/

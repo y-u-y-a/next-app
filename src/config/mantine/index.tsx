@@ -11,10 +11,11 @@ import "@mantine/core/styles.css"
 // import "@mantine/notifications/styles.css"
 
 // original
-import "./global.css"
-import ActiveClassNames from "./styles/Active.module.css"
-import ButtonClassNames from "./styles/Button.module.css"
-import TextInputClassNames from "./styles/TextInput.module.css"
+import "../styles/global.css"
+
+import ActiveClassNames from "../styles/Active.module.css"
+import ButtonClassNames from "../styles/Button.module.css"
+import TextInputClassNames from "../styles/TextInput.module.css"
 
 /**
  * @see https://mantine.dev/theming/theme-object
