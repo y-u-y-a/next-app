@@ -3,18 +3,18 @@ declare module "*.module.css" {
   export default classes
 }
 
-declare namespace NodeJS {
-  interface ProcessEnv {
-    readonly NODE_ENV: "development" | "production" | "test"
-    readonly API_URL: string
-  }
-}
-
 /**
  * @see https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamic
  */
 declare interface NextJS {
   dynamic: "auto" | "force-dynamic" | "error" | "force-static"
+}
+
+declare namespace NodeJS {
+  interface ProcessEnv {
+    readonly NODE_ENV: "development" | "production" | "test"
+    readonly API_URL: string
+  }
 }
 
 // declare interface Window {
