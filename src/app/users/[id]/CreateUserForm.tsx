@@ -26,14 +26,14 @@ export const CreateUserForm = (props: PaperProps) => {
 
   return (
     <>
-      <Paper mb={60} p={40} bg="#E8E8E8" radius={0} {...props}>
+      <Paper mb={60} p={40} bg="gray.2" radius={0} {...props}>
         <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
           <Stack gap={20}>
             <TextInput {...form.getInputProps("name")} label="ユーザー名" error={form.errors.name} />
             <TextInput {...form.getInputProps("email")} label="メールアドレス" error={form.errors.email} />
           </Stack>
           <Flex mt={40} gap="md" justify="center">
-            <Button variant="filled" type="submit" children="確認する" />
+            <Button variant="filled" type="submit" children="Update" />
           </Flex>
         </form>
       </Paper>

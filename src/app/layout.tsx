@@ -23,9 +23,9 @@ export default function RootLayout({ children }: Props) {
       <body>
         <MantineUIProvider>
           <Stack gap={0} mih="100vh">
-            <Header bg="teal" pos="sticky" top={0} />
+            <Header pos="sticky" top={0} />
             <Box style={{ flexGrow: 1 }} children={children} />
-            <Footer bg="teal" c="white" />
+            <Footer />
           </Stack>
         </MantineUIProvider>
       </body>

@@ -31,7 +31,7 @@ export const SearchUserForm = () => {
 
   return (
     <>
-      <Paper mb={60} p={40} bg="#E8E8E8" radius={0}>
+      <Paper mb={60} p={40} bg="gray.2" radius={0}>
         <form onSubmit={form.onSubmit(search)} noValidate>
           <Stack gap={24}>
             <Group>
@@ -40,8 +40,8 @@ export const SearchUserForm = () => {
             </Group>
             <Checkbox {...form.getInputProps("isIncludeCanceled")} label="解約済みも含める" />
             <Flex gap="md" align="center">
-              <Button children="検索" variant="filled" type="submit" />
-              <Button children="クリア" variant="outline" onClick={clearQueryParams} />
+              <Button children="Search" variant="filled" type="submit" />
+              <Button children="Clear" variant="outline" onClick={clearQueryParams} />
             </Flex>
           </Stack>
         </form>

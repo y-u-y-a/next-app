@@ -12,8 +12,8 @@ import { SearchUserForm } from "./SearchUserForm"
 // export const dynamic: NextJS["dynamic"] = "force-dynamic"
 
 export const metadata: Metadata = {
-  title: "ユーザー情報",
-  description: "ユーザー情報",
+  title: "Users",
+  description: "Users",
 }
 
 interface Props {
@@ -30,16 +30,16 @@ export default async function UsersPage({ searchParams: { page, email } }: Props
   return (
     <Container>
       <Paper mb={24} mx="auto" p="md" radius="sm">
-        <Title mt="md" mb="xl" lh="36px" style={{ borderBottom: "1px solid #A0A0A0" }} size="h4" children="ユーザー情報" />
+        <Title mt="md" mb="xl" lh="36px" style={{ borderBottom: "1px solid #A0A0A0" }} size="h4" children="Users" />
         <SearchUserForm />
         <PaginationGroup currentPage={currentPage} totalPage={totalPages} />
         <TableScrollContainer minWidth="1060px">
           <Table withTableBorder withColumnBorders>
             <TableThead>
               <TableTr>
-                <TableTh colSpan={4} ta="center" fw="bold" bg="#E8E8E8" children="ID" />
-                <TableTh colSpan={4} ta="center" fw="bold" bg="#E8E8E8" children="ユーザー名" />
-                <TableTh colSpan={4} ta="center" fw="bold" bg="#E8E8E8" children="メールアドレス" />
+                <TableTh colSpan={4} ta="center" fw="bold" bg="gray.2" children="ID" />
+                <TableTh colSpan={4} ta="center" fw="bold" bg="gray.2" children="ユーザー名" />
+                <TableTh colSpan={4} ta="center" fw="bold" bg="gray.2" children="メールアドレス" />
               </TableTr>
             </TableThead>
             <TableTbody>

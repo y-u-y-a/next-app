@@ -9,25 +9,27 @@ export const Header = (props: BoxProps) => {
   const [showMenu, { toggle: toggleMenu }] = useDisclosure()
 
   return (
-    <Box style={{ zIndex: 99, backdropFilter: "blur(20px)" }} {...props}>
-      <Container py={8}>
+    <Box style={{ zIndex: 99, backdropFilter: "blur(20px)", borderBottom: "1px solid", borderColor: "#ced4da" }} {...props}>
+      <Container py={20}>
         <Flex justify="space-between">
-          <Anchor c="white" underline="never" component={Link} href={Paths.HOME}>
+          <Anchor c="orange.6" underline="never" component={Link} href={Paths.HOME}>
             <Title children={APP_TITLE} size="h2" />
           </Anchor>
           <Group gap="md">
             <Group visibleFrom="md" gap="lg">
-              <Anchor mt={3} c="white" fw="bold" underline="never" component={Link} href={Paths.POKEMONS} children="ポケモン一覧" />
-              <Anchor mt={3} c="white" fw="bold" underline="never" component={Link} href={Paths.USERS} children="ユーザー情報" />
+              <Anchor mt={3} c="orange.6" fw="bold" underline="never" component={Link} href={Paths.USERS} children="Users" />
+              <Anchor mt={3} c="orange.6" fw="bold" underline="never" component={Link} href={Paths.POKEMONS} children="Pokemons" />
             </Group>
 
-            <Burger color="#fff" opened={showMenu} onClick={toggleMenu} />
-            <Drawer position="right" opened={showMenu} onClose={toggleMenu}>
-              <Stack gap="lg">
-                <Anchor underline="never" href={Paths.POKEMONS} fw="bold" children="ポケモン一覧" />
-                <Anchor underline="never" href={Paths.USERS} fw="bold" children="ユーザー情報" />
-              </Stack>
-            </Drawer>
+            <Box hiddenFrom="md">
+              <Burger color="orange.6" opened={showMenu} onClick={toggleMenu} />
+              <Drawer position="right" opened={showMenu} onClose={toggleMenu}>
+                <Stack gap="lg">
+                  <Anchor underline="never" href={Paths.USERS} fw="bold" children="Users" />
+                  <Anchor underline="never" href={Paths.POKEMONS} fw="bold" children="Pokemons" />
+                </Stack>
+              </Drawer>
+            </Box>
           </Group>
         </Flex>
       </Container>
