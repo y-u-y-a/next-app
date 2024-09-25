@@ -2,7 +2,7 @@
 
 import { type SearchUserFormInput, searchUserFormSchema } from "@/features/user/userSchema"
 import { useChangeQueryParams } from "@/hooks/useChangeQueryParams"
-import { Button, Checkbox, Flex, Group, Paper, Stack, TextInput } from "@mantine/core"
+import { Button, Flex, Group, Paper, Stack, TextInput } from "@mantine/core"
 import { useForm, zodResolver } from "@mantine/form"
 import { notifications } from "@mantine/notifications"
 import { IconCheck, IconX } from "@tabler/icons-react"
@@ -35,10 +35,9 @@ export const SearchUserForm = () => {
         <form onSubmit={form.onSubmit(search)} noValidate>
           <Stack gap={24}>
             <Group>
-              <TextInput maw={360} {...form.getInputProps("name")} label="ユーザー名" />
-              <TextInput maw={360} {...form.getInputProps("email")} label="メールアドレス" error={!!form.errors.email} />
+              <TextInput maw={360} {...form.getInputProps("name")} label="Name" />
+              <TextInput maw={360} {...form.getInputProps("email")} label="Email" error={!!form.errors.email} />
             </Group>
-            <Checkbox {...form.getInputProps("isIncludeCanceled")} label="解約済みも含める" />
             <Flex gap="md" align="center">
               <Button children="Search" variant="filled" type="submit" />
               <Button children="Clear" variant="outline" onClick={clearQueryParams} />

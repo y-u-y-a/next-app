@@ -18,14 +18,14 @@ export const metadata: Metadata = {
 
 interface Props {
   searchParams: {
-    page: string
-    email: string
+    page?: string
+    email?: string
   }
 }
 
 export default async function UsersPage({ searchParams: { page, email } }: Props) {
   const currentPage = Number(page) || 1
-  const { items: users, totalPages } = await userService.getByPaging(currentPage, email || "")
+  const { items: users, totalPages } = await userService.getByPaging(currentPage, email)
 
   return (
     <Container>
@@ -38,8 +38,8 @@ export default async function UsersPage({ searchParams: { page, email } }: Props
             <TableThead>
               <TableTr>
                 <TableTh colSpan={4} ta="center" fw="bold" bg="gray.2" children="ID" />
-                <TableTh colSpan={4} ta="center" fw="bold" bg="gray.2" children="ユーザー名" />
-                <TableTh colSpan={4} ta="center" fw="bold" bg="gray.2" children="メールアドレス" />
+                <TableTh colSpan={4} ta="center" fw="bold" bg="gray.2" children="Name" />
+                <TableTh colSpan={4} ta="center" fw="bold" bg="gray.2" children="Email" />
               </TableTr>
             </TableThead>
             <TableTbody>
