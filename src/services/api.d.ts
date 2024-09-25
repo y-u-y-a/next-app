@@ -5,6 +5,25 @@
 
 
 export interface paths {
+  "/users": {
+    /**
+     * User一覧取得
+     * @description 登録されているUserをページネーション取得します。
+     */
+    get: {
+      parameters: {
+        query?: {
+          currentPage?: components["parameters"]["CurrentPage"];
+          paginate?: components["parameters"]["Paginate"];
+        };
+      };
+      responses: {
+        200: components["responses"]["GetUsersResponse"];
+        404: components["responses"]["NotFoundErrorResponse"];
+        500: components["responses"]["InternalServerErrorResponse"];
+      };
+    };
+  };
   "/user/{userId}": {
     /**
      * User取得
@@ -37,25 +56,6 @@ export interface paths {
       };
     };
   };
-  "/companies": {
-    /**
-     * Company一覧取得
-     * @description 登録されているCompanyをページネーション取得します。
-     */
-    get: {
-      parameters: {
-        query?: {
-          currentPage?: components["parameters"]["CurrentPage"];
-          paginate?: components["parameters"]["Paginate"];
-        };
-      };
-      responses: {
-        200: components["responses"]["GetCompaniesResponse"];
-        404: components["responses"]["NotFoundErrorResponse"];
-        500: components["responses"]["InternalServerErrorResponse"];
-      };
-    };
-  };
 }
 
 export type webhooks = Record<string, never>;
@@ -80,15 +80,7 @@ export interface components {
       /** メールアドレス */
       email: string;
     };
-    Company: {
-      /** ID */
-      id: string;
-      /** 企業名 */
-      name: string;
-      /** メールアドレス */
-      email: string;
-    };
-    Companies: components["schemas"]["Company"][];
+    Users: components["schemas"]["User"][];
   };
   responses: {
     GetUserResponse: {
@@ -101,10 +93,10 @@ export interface components {
         "application/json": components["schemas"]["User"];
       };
     };
-    GetCompaniesResponse: {
+    GetUsersResponse: {
       content: {
         "application/json": {
-          companies: components["schemas"]["Companies"];
+          users: components["schemas"]["Users"];
           paging: components["schemas"]["Paging"];
         };
       };

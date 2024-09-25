@@ -1,16 +1,61 @@
-import { Container } from "@mantine/core"
+import { userService } from "@/services/userService"
+import { Anchor, Container, Paper, Table, TableScrollContainer, TableTbody, TableTd, TableTh, TableThead, TableTr, Title } from "@mantine/core"
+import Link from "next/link"
 import type { Metadata } from "next/types"
-import { CreateUserForm } from "./CreateUserForm"
+import { PaginationGroup } from "../../components/elements/PaginationGroup"
+import { SearchUserForm } from "./SearchUserForm"
+
+/**
+ * デフォルトは静的レンダリングであり、mockサーバーがローカルのみなので動的レンダリングを指定しています
+ * APIの実装が完了すれば下記記載は削除できます
+ */
+// export const dynamic: NextJS["dynamic"] = "force-dynamic"
 
 export const metadata: Metadata = {
-  title: "ユーザー一覧",
-  description: "ユーザー一覧",
+  title: "ユーザー情報",
+  description: "ユーザー情報",
 }
 
-export default function UsersPage() {
+interface Props {
+  searchParams: {
+    page: string
+    email: string
+  }
+}
+
+export default async function UsersPage({ searchParams: { page, email } }: Props) {
+  const currentPage = Number(page) || 1
+  const { items: users, totalPages } = await userService.getByPaging(currentPage, email || "")
+
   return (
-    <Container py={40}>
-      <CreateUserForm mt={40} mx="auto" maw={600} />
+    <Container>
+      <Paper mb={24} mx="auto" p="md" radius="sm">
+        <Title mt="md" mb="xl" lh="36px" style={{ borderBottom: "1px solid #A0A0A0" }} size="h4" children="ユーザー情報" />
+        <SearchUserForm />
+        <PaginationGroup currentPage={currentPage} totalPage={totalPages} />
+        <TableScrollContainer minWidth="1060px">
+          <Table withTableBorder withColumnBorders>
+            <TableThead>
+              <TableTr>
+                <TableTh colSpan={4} ta="center" fw="bold" bg="#E8E8E8" children="ID" />
+                <TableTh colSpan={4} ta="center" fw="bold" bg="#E8E8E8" children="ユーザー名" />
+                <TableTh colSpan={4} ta="center" fw="bold" bg="#E8E8E8" children="メールアドレス" />
+              </TableTr>
+            </TableThead>
+            <TableTbody>
+              {users.map((user) => (
+                <TableTr key={user.id}>
+                  <TableTd colSpan={4} ta="center">
+                    <Anchor href={`/users/${user.id}`} component={Link} children={user.id} />
+                  </TableTd>
+                  <TableTd colSpan={4} children={user.name} />
+                  <TableTd colSpan={4} children={user.email} />
+                </TableTr>
+              ))}
+            </TableTbody>
+          </Table>
+        </TableScrollContainer>
+      </Paper>
     </Container>
   )
 }

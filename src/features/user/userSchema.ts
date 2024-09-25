@@ -1,7 +1,7 @@
 import { Errors } from "@/config/consts"
 import { z } from "zod"
 
-export const createUserFormSchema = z.object({
+const userFormSchema = z.object({
   name: z.string().min(1, { message: Errors.REQUIRED }),
   email: z.string().email(Errors.INVALID_EMAIL_TYPE),
 
@@ -11,4 +11,8 @@ export const createUserFormSchema = z.object({
   // email: z.string().email(Errors.INVALID_EMAIL_TYPE).optional().or(z.literal("")),
 })
 
+export const createUserFormSchema = userFormSchema
+export const searchUserFormSchema = userFormSchema
+
 export type CreateUserFormInput = z.infer<typeof createUserFormSchema>
+export type SearchUserFormInput = z.infer<typeof searchUserFormSchema>

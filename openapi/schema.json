@@ -7,6 +7,25 @@
   },
   "servers": [{ "url": "https://api.example.com/api/v1" }],
   "paths": {
+    "/users": {
+      "get": {
+        "tags": ["User"],
+        "summary": "User一覧取得",
+        "description": "登録されているUserをページネーション取得します。",
+        "parameters": [{ "$ref": "#/components/parameters/CurrentPage" }, { "$ref": "#/components/parameters/Paginate" }],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/GetUsersResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundErrorResponse"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerErrorResponse"
+          }
+        }
+      }
+    },
     "/user/{userId}": {
       "get": {
         "tags": ["User"],
@@ -46,25 +65,6 @@
           }
         }
       }
-    },
-    "/companies": {
-      "get": {
-        "tags": ["Company"],
-        "summary": "Company一覧取得",
-        "description": "登録されているCompanyをページネーション取得します。",
-        "parameters": [{ "$ref": "#/components/parameters/CurrentPage" }, { "$ref": "#/components/parameters/Paginate" }],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/GetCompaniesResponse"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFoundErrorResponse"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerErrorResponse"
-          }
-        }
-      }
     }
   },
   "components": {
@@ -88,18 +88,9 @@
           "email": { "type": "string", "title": "メールアドレス" }
         }
       },
-      "Company": {
-        "type": "object",
-        "required": ["id", "name", "email"],
-        "properties": {
-          "id": { "type": "string", "title": "ID" },
-          "name": { "type": "string", "title": "企業名" },
-          "email": { "type": "string", "title": "メールアドレス" }
-        }
-      },
-      "Companies": {
+      "Users": {
         "type": "array",
-        "items": { "$ref": "#/components/schemas/Company" }
+        "items": { "$ref": "#/components/schemas/User" }
       }
     },
     "parameters": {
@@ -180,16 +171,16 @@
           }
         }
       },
-      "GetCompaniesResponse": {
+      "GetUsersResponse": {
         "description": "",
         "content": {
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["companies", "paging"],
+              "required": ["users", "paging"],
               "properties": {
-                "companies": {
-                  "$ref": "#/components/schemas/Companies"
+                "users": {
+                  "$ref": "#/components/schemas/Users"
                 },
                 "paging": {
                   "$ref": "#/components/schemas/Paging"
@@ -199,31 +190,31 @@
             "examples": {
               "dummy": {
                 "value": {
-                  "companies": [
-                    { "id": 1, "name": "Amazon合同会社", "email": "amazon@example.com" },
-                    { "id": 2, "name": "SONY株式会社", "email": "sony@example.com" },
-                    { "id": 3, "name": "Facebook株式会社", "email": "facebook@example.com" },
-                    { "id": 4, "name": "dummy04株式会社", "email": "dummy05@example.com" },
-                    { "id": 5, "name": "dummy05株式会社", "email": "dummy05@example.com" },
-                    { "id": 6, "name": "dummy06株式会社", "email": "dummy06@example.com" },
-                    { "id": 7, "name": "dummy07株式会社", "email": "dummy07@example.com" },
-                    { "id": 8, "name": "dummy08株式会社", "email": "dummy08@example.com" },
-                    { "id": 9, "name": "dummy09株式会社", "email": "dummy09@example.com" },
-                    { "id": 10, "name": "dummy10株式会社", "email": "dummy10@example.com" },
-                    { "id": 11, "name": "dummy11株式会社", "email": "dummy11@example.com" },
-                    { "id": 12, "name": "dummy12株式会社", "email": "dummy12@example.com" },
-                    { "id": 13, "name": "dummy13株式会社", "email": "dummy13@example.com" },
-                    { "id": 14, "name": "dummy14株式会社", "email": "dummy14@example.com" },
-                    { "id": 15, "name": "dummy15株式会社", "email": "dummy15@example.com" },
-                    { "id": 16, "name": "dummy16株式会社", "email": "dummy16@example.com" },
-                    { "id": 17, "name": "dummy17株式会社", "email": "dummy17@example.com" },
-                    { "id": 18, "name": "dummy18株式会社", "email": "dummy18@example.com" },
-                    { "id": 19, "name": "dummy19株式会社", "email": "dummy19@example.com" },
-                    { "id": 20, "name": "dummy20株式会社", "email": "dummy20@example.com" },
-                    { "id": 21, "name": "dummy21株式会社", "email": "dummy21@example.com" },
-                    { "id": 22, "name": "dummy22株式会社", "email": "dummy22@example.com" },
-                    { "id": 23, "name": "dummy23株式会社", "email": "dummy23@example.com" },
-                    { "id": 24, "name": "dummy24株式会社", "email": "dummy24@example.com" }
+                  "users": [
+                    { "id": 1, "name": "dummy01", "email": "dummy01azon@example.com" },
+                    { "id": 2, "name": "dummy02", "email": "dummy02@example.com" },
+                    { "id": 3, "name": "dummy03", "email": "dummy03@example.com" },
+                    { "id": 4, "name": "dummy04", "email": "dummy04@example.com" },
+                    { "id": 5, "name": "dummy05", "email": "dummy05@example.com" },
+                    { "id": 6, "name": "dummy06", "email": "dummy06@example.com" },
+                    { "id": 7, "name": "dummy07", "email": "dummy07@example.com" },
+                    { "id": 8, "name": "dummy08", "email": "dummy08@example.com" },
+                    { "id": 9, "name": "dummy09", "email": "dummy09@example.com" },
+                    { "id": 10, "name": "dummy10", "email": "dummy10@example.com" },
+                    { "id": 11, "name": "dummy11", "email": "dummy11@example.com" },
+                    { "id": 12, "name": "dummy12", "email": "dummy12@example.com" },
+                    { "id": 13, "name": "dummy13", "email": "dummy13@example.com" },
+                    { "id": 14, "name": "dummy14", "email": "dummy14@example.com" },
+                    { "id": 15, "name": "dummy15", "email": "dummy15@example.com" },
+                    { "id": 16, "name": "dummy16", "email": "dummy16@example.com" },
+                    { "id": 17, "name": "dummy17", "email": "dummy17@example.com" },
+                    { "id": 18, "name": "dummy18", "email": "dummy18@example.com" },
+                    { "id": 19, "name": "dummy19", "email": "dummy19@example.com" },
+                    { "id": 20, "name": "dummy20", "email": "dummy20@example.com" },
+                    { "id": 21, "name": "dummy21", "email": "dummy21@example.com" },
+                    { "id": 22, "name": "dummy22", "email": "dummy22@example.com" },
+                    { "id": 23, "name": "dummy23", "email": "dummy23@example.com" },
+                    { "id": 24, "name": "dummy24", "email": "dummy24@example.com" }
                   ],
                   "paging": {
                     "totalPages": "21",
