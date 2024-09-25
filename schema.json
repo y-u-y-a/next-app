@@ -217,7 +217,7 @@
                     { "id": 24, "name": "dummy24", "email": "dummy24@example.com" }
                   ],
                   "paging": {
-                    "totalPages": "21",
+                    "totalPages": 21,
                     "currentPage": 1,
                     "paginate": 5,
                     "total": 108
