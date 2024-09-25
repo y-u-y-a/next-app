@@ -3,7 +3,7 @@ import { describe, expect, test } from "vitest"
 import { type SearchUserFormInput, searchUserFormSchema } from "./userSchema"
 
 const correctInput: SearchUserFormInput = {
-  name: "サンプル株式会社",
+  name: "テスト太郎",
   email: "test@test.com",
 }
 
