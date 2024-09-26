@@ -21,28 +21,10 @@ class UserService extends BaseService {
       items: users,
     }
   }
-  /**
-   * @summary ユーザー情報一覧を取得する
-   * @description サーバー側でPaging,Sorting,Filteringをする
-   * */
-  async getAll(currentPage: number, email = ""): Promise<Pagination<User>> {
-    const { data } = await this.api.GET("/users", { params: { query: { currentPage } } })
-    if (!data) throw new Error("取得に失敗しました")
 
-    // フィルタリング処理、ソーティング処理
-    console.info({ email })
-
-    return {
-      ...data.paging,
-      items: data.users,
-    }
-  }
-
-  /** ユーザー登録する */
-  async create(name: string, email: string): Promise<User> {
-    const { data } = await this.api.POST("/user", { body: { name, email } })
-    if (!data) throw new Error("ユーザー登録に失敗しました")
-    return { ...data }
+  async find(userId: string): Promise<User> {
+    const { rows } = await sql<User>`SELECT * FROM users WHERE id = ${userId} LIMIT 1;`
+    return rows[0]
   }
 }
 

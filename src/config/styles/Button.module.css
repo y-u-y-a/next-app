@@ -15,3 +15,13 @@
   color: #4484BC;
   background: white;
 }
+
+.root[data-disabled='true'] {
+  border: none;
+  opacity: 0.4;
+  color: white;
+  background: #b5b5b5;
+  .inner {
+    background: transparent;
+  }
+}

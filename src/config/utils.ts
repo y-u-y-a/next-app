@@ -1,11 +1,11 @@
-export async function wait5SecondsAsync() {
+export async function waitSecondsAsync() {
   console.log("Start wait timer.")
 
   await new Promise<void>((resolve) => {
     setTimeout(() => {
-      console.log("Passed 5 seconds.")
+      console.log("Passed 3 seconds.")
       resolve()
-    }, 5000)
+    }, 3000)
   })
   return true
 }

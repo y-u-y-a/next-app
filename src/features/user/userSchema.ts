@@ -10,8 +10,8 @@ const userFormSchema = z.object({
   // email: z.string().email(Errors.INVALID_EMAIL_TYPE).optional().or(z.literal("")),
 })
 
-export const createUserFormSchema = userFormSchema
+export const updateUserFormSchema = userFormSchema
 export const searchUserFormSchema = userFormSchema
 
-export type CreateUserFormInput = z.infer<typeof createUserFormSchema>
+export type UpdateUserFormInput = z.infer<typeof updateUserFormSchema>
 export type SearchUserFormInput = z.infer<typeof searchUserFormSchema>

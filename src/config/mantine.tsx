@@ -1,6 +1,7 @@
 "use client"
 
 import { Anchor, Button, Checkbox, Container, MantineProvider, TextInput } from "@mantine/core"
+import { Notifications } from "@mantine/notifications"
 import type { ReactNode } from "react"
 
 // default
@@ -8,7 +9,7 @@ import "@mantine/core/styles.css"
 
 // components
 // import "@mantine/carousel/styles.css"
-// import "@mantine/notifications/styles.css"
+import "@mantine/notifications/styles.css"
 
 // original
 import "./styles/global.css"
@@ -53,6 +54,7 @@ export const MantineUIProvider = ({ children }: { children: ReactNode }) => {
         activeClassName: ActiveClassNames.active,
       }}
     >
+      <Notifications />
       {children}
     </MantineProvider>
   )
