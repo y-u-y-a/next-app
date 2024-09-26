@@ -3,6 +3,7 @@ import { Header } from "@/components/templates/Header"
 import { APP_TITLE } from "@/config/consts"
 import { MantineUIProvider } from "@/config/mantine"
 import { Box, Stack } from "@mantine/core"
+import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import type { Metadata } from "next"
 
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: Props) {
       </head>
       <body>
         <MantineUIProvider>
+          <Analytics />
           <SpeedInsights />
           <Stack gap={0} mih="100vh">
             <Header pos="sticky" top={0} />
