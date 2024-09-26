@@ -15,9 +15,9 @@ export class BaseService {
   constructor() {
     this.api = createClient<paths>({
       baseUrl: global.process.env.API_URL,
-      headers: {
-        Authorization: `Bearer ${process.env.API_TOKEN || ""}`,
-      },
+      // headers: {
+      //   Authorization: `Bearer ${process.env.API_TOKEN || ""}`,
+      // },
     })
   }
 

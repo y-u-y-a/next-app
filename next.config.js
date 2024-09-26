@@ -7,4 +7,10 @@ module.exports = {
   images: {
     domains: [],
   },
+  webpack: (config) => {
+    config.cache = {
+      type: "filesystem", // ファイルシステムキャッシュを使用
+    }
+    return config
+  },
 }

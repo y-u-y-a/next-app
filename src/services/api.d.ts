@@ -12,9 +12,9 @@ export interface paths {
      */
     get: {
       parameters: {
-        query?: {
-          currentPage?: components["parameters"]["CurrentPage"];
-          paginate?: components["parameters"]["Paginate"];
+        query: {
+          currentPage: components["parameters"]["CurrentPage"];
+          email: components["parameters"]["EmailKeyword"];
         };
       };
       responses: {
@@ -24,7 +24,7 @@ export interface paths {
       };
     };
   };
-  "/user/{userId}": {
+  "/users/{userId}": {
     /**
      * User取得
      * @description 登録されているユーザーを一覧で取得します。
@@ -42,15 +42,20 @@ export interface paths {
       };
     };
   };
-  "/user": {
+  "/users/{userId}/update": {
     /**
-     * User登録
-     * @description ユーザーを登録します。
+     * User更新
+     * @description ユーザー情報を更新します。
      */
     post: {
-      requestBody: components["requestBodies"]["CreateUserRequestBody"];
+      parameters: {
+        path: {
+          userId: components["parameters"]["UserId"];
+        };
+      };
+      requestBody: components["requestBodies"]["UpdateUserRequestBody"];
       responses: {
-        200: components["responses"]["CreateUserResponse"];
+        200: components["responses"]["UpdateUserResponse"];
         404: components["responses"]["NotFoundErrorResponse"];
         500: components["responses"]["InternalServerErrorResponse"];
       };
@@ -88,7 +93,7 @@ export interface components {
         "application/json": components["schemas"]["User"];
       };
     };
-    CreateUserResponse: {
+    UpdateUserResponse: {
       content: {
         "application/json": components["schemas"]["User"];
       };
@@ -136,14 +141,16 @@ export interface components {
   };
   parameters: {
     /** @description 現在のページ番号（1〜） */
-    CurrentPage?: number;
+    CurrentPage: number;
     /** @description ページ毎の表示件数 */
-    Paginate?: number;
+    Paginate: number;
+    /** @description メールアドレス検索値 */
+    EmailKeyword: string;
     /** @description 取得したいユーザーIDを指定します。 */
     UserId: string;
   };
   requestBodies: {
-    CreateUserRequestBody: {
+    UpdateUserRequestBody: {
       content: {
         "application/json": {
           /** ユーザー名 */
