@@ -3,6 +3,8 @@ import { Container } from "@mantine/core"
 import type { Metadata } from "next/types"
 import { UpdateUserForm } from "./UpdateUserForm"
 
+export const revalidate = 0
+
 export const metadata: Metadata = {
   title: "ユーザー一覧",
   description: "ユーザー一覧",
