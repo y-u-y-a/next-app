@@ -12,7 +12,7 @@
         "tags": ["User"],
         "summary": "User一覧取得",
         "description": "登録されているUserをページネーション取得します。",
-        "parameters": [{ "$ref": "#/components/parameters/CurrentPage" }, { "$ref": "#/components/parameters/Paginate" }],
+        "parameters": [{ "$ref": "#/components/parameters/CurrentPage" }, { "$ref": "#/components/parameters/EmailKeyword" }],
         "responses": {
           "200": {
             "$ref": "#/components/responses/GetUsersResponse"
@@ -26,7 +26,7 @@
         }
       }
     },
-    "/user/{userId}": {
+    "/users/{userId}": {
       "get": {
         "tags": ["User"],
         "summary": "User取得",
@@ -45,17 +45,18 @@
         }
       }
     },
-    "/user": {
+    "/users/{userId}/update": {
       "post": {
         "tags": ["User"],
-        "summary": "User登録",
-        "description": "ユーザーを登録します。",
+        "summary": "User更新",
+        "description": "ユーザー情報を更新します。",
+        "parameters": [{ "$ref": "#/components/parameters/UserId" }],
         "requestBody": {
-          "$ref": "#/components/requestBodies/CreateUserRequestBody"
+          "$ref": "#/components/requestBodies/UpdateUserRequestBody"
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/CreateUserResponse"
+            "$ref": "#/components/responses/UpdateUserResponse"
           },
           "404": {
             "$ref": "#/components/responses/NotFoundErrorResponse"
@@ -97,7 +98,7 @@
       "CurrentPage": {
         "name": "currentPage",
         "in": "query",
-        "required": false,
+        "required": true,
         "description": "現在のページ番号（1〜）",
         "schema": {
           "type": "integer",
@@ -107,12 +108,19 @@
       "Paginate": {
         "name": "paginate",
         "in": "query",
-        "required": false,
+        "required": true,
         "description": "ページ毎の表示件数",
         "schema": {
           "type": "integer",
           "format": "int32"
         }
+      },
+      "EmailKeyword": {
+        "name": "email",
+        "in": "query",
+        "required": true,
+        "description": "メールアドレス検索値",
+        "schema": { "type": "string" }
       },
       "UserId": {
         "in": "path",
@@ -123,7 +131,7 @@
       }
     },
     "requestBodies": {
-      "CreateUserRequestBody": {
+      "UpdateUserRequestBody": {
         "required": true,
         "description": "",
         "content": {
@@ -156,7 +164,7 @@
           }
         }
       },
-      "CreateUserResponse": {
+      "UpdateUserResponse": {
         "description": "",
         "content": {
           "application/json": {
