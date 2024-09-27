@@ -31,7 +31,7 @@ export const SearchUserForm = () => {
 
   return (
     <>
-      <Paper mb={60} p={40} bg="gray.2" radius={0}>
+      <Paper mb={60} p={40} bg="gray.2" radius="sm">
         <form onSubmit={form.onSubmit(search)} noValidate>
           <Stack gap={24}>
             <Group>
@@ -39,8 +39,8 @@ export const SearchUserForm = () => {
               <TextInput maw={360} {...form.getInputProps("email")} label="Email" error={!!form.errors.email} />
             </Group>
             <Flex gap="md" align="center">
-              <Button children="Search" variant="filled" type="submit" />
               <Button children="Clear" variant="outline" onClick={clearQueryParams} />
+              <Button children="Search" variant="filled" type="submit" />
             </Flex>
           </Stack>
         </form>

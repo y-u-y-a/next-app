@@ -27,7 +27,7 @@ export default function UsersPage({ searchParams: { page, email } }: Props) {
 
   return (
     <Container>
-      <Paper mb={24} mx="auto" p="md" radius="sm">
+      <Paper mb={24} mx="auto" radius="sm">
         <Title mt="md" mb="xl" lh="36px" style={{ borderBottom: "1px solid #A0A0A0" }} size="h4" children="Users" />
         <SearchUserForm />
         <Suspense fallback={<Skeleton miw="1060px" h="200px" />}>
