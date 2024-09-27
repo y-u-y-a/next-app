@@ -5,11 +5,6 @@ import { SearchUserForm } from "./SearchUserForm"
 import { UsersTable } from "./UsersTable"
 
 /**
- * 0:常に動的クエリを発行して表示する
- */
-export const revalidate = 0
-
-/**
  * デフォルトは静的レンダリングであり、mockサーバーがローカルのみなので動的レンダリングを指定しています
  * APIの実装が完了すれば下記記載は削除できます
  */

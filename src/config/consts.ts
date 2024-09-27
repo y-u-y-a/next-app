@@ -4,6 +4,7 @@ export const Paths = {
   HOME: "/",
   POKEMONS: "/pokemons",
   USERS: "/users",
+  USER: "/users/:id",
 } as const
 
 export const Images = {
