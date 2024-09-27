@@ -6,7 +6,7 @@
     "node": "18"
   },
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "NEXT_PRIVATE_DEBUG_CACHE=1 next dev --turbo",
     "build": "next build",
     "start": "next start",
     "prod": "pnpm build && pnpm start",

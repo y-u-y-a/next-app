@@ -32,6 +32,8 @@
 
 ```shell:
 $ pnpm install
+$ vercel env pull .env
+
 $ pnpm dev # start server.
 $ pnpm api # generate API schema and document.
 ```

@@ -7,9 +7,10 @@ module.exports = {
   images: {
     domains: [],
   },
-  /**
-   * enabled tree shaking
-   * @link https://mantine.dev/guides/next/#app-router-tree-shaking
-   * */
-  // optimizePackageImports: ["@mantine/core", "@mantine/form", "@mantine/hooks", "@mantine/notifications"],
+  logging: {
+    fetches: {
+      fullUrl: true,
+      hmrRefreshes: true,
+    },
+  },
 }
