@@ -1,6 +1,6 @@
 "use client"
 
-import { Anchor, Button, Checkbox, Container, MantineProvider, TextInput } from "@mantine/core"
+import { Anchor, Button, Checkbox, Container, type DefaultMantineColor, type MantineColorsTuple, MantineProvider, TextInput } from "@mantine/core"
 import { Notifications } from "@mantine/notifications"
 import type { ReactNode } from "react"
 
@@ -18,6 +18,12 @@ import ActiveClassNames from "./styles/Active.module.css"
 import ButtonClassNames from "./styles/Button.module.css"
 import TextInputClassNames from "./styles/TextInput.module.css"
 
+declare module "@mantine/core" {
+  export interface MantineThemeColorsOverride {
+    colors: Record<"primary" | DefaultMantineColor, MantineColorsTuple>
+  }
+}
+
 /**
  * @see https://mantine.dev/theming/theme-object
  */
@@ -25,7 +31,11 @@ export const MantineUIProvider = ({ children }: { children: ReactNode }) => {
   return (
     <MantineProvider
       theme={{
+        // primaryColor: "primary",
         black: "#404040",
+        colors: {
+          primary: ["", "", "", "", "", "", "#FF8805", "", "", ""],
+        },
         fontFamily: "Noto Sans JP, sans-serif",
         components: {
           Container: Container.extend({

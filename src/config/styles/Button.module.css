@@ -5,15 +5,15 @@
 }
 
 .root[data-variant='filled'] {
-  border: 1px solid #4484BC;
   color: white;
-  background: #4484BC;
+  background: #FF8805;
+  border: 1px solid #FF8805;
 }
 
 .root[data-variant='outline'] {
-  border: 1px solid #4484BC;
-  color: #4484BC;
   background: white;
+  color: #FF8805;
+  border: 1px solid #FF8805;
 }
 
 .root[data-disabled='true'] {
