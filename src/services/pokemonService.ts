@@ -1,5 +1,5 @@
 import type { Pokemon } from "@/features/pokemon/types"
-import { BaseService, type Pagination } from "./baseService"
+import { BaseService } from "./baseService"
 
 interface GetPokemonsResponse {
   results: {
@@ -39,7 +39,7 @@ class PokemonService extends BaseService {
     const totalPages = total / paginate // ポケモン総数から算出する必要
 
     const items = await this.getAll(offset, paginate)
-    return { total, paginate, currentPage, totalPages, items }
+    return { paging: { total, paginate, currentPage, totalPages }, items }
   }
   /**
    * ポケモン情報一覧を取得する

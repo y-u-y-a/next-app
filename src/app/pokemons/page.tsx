@@ -17,12 +17,12 @@ export const metadata: Metadata = {
 
 export default async function RootPage({ searchParams }: Props) {
   const currentPage = Number(searchParams.page) || 1
-  const { items: pokemons, totalPages } = await pokemonService.getByPaging(currentPage)
+  const { items: pokemons, paging } = await pokemonService.getByPaging(currentPage)
 
   return (
     <Container py={40}>
       <Title mb={40} size="h2" data-testid="root-page" children="ポケモン一覧" />
-      <PaginationGroup currentPage={currentPage} totalPage={totalPages} />
+      <PaginationGroup currentPage={currentPage} totalPage={paging.totalPages} />
       <PokemonList pokemons={pokemons} />
     </Container>
   )

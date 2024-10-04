@@ -9,11 +9,11 @@ interface Props {
 }
 
 export const UsersTable = async ({ currentPage, email }: Props) => {
-  const { items: users, totalPages } = await userService.getByPaging(currentPage, email)
+  const { items: users, paging } = await userService.getByPaging(currentPage, email)
 
   return (
     <>
-      <PaginationGroup currentPage={currentPage} totalPage={totalPages} />
+      <PaginationGroup currentPage={currentPage} totalPage={paging.totalPages} />
       <TableScrollContainer minWidth="1060px">
         <Table withTableBorder withColumnBorders>
           <TableThead>

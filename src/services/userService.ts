@@ -1,6 +1,6 @@
 import type { User } from "@/features/user/types"
 import type { UpdateUserFormInput } from "@/features/user/userSchema"
-import { BaseService, type Pagination } from "./baseService"
+import { BaseService } from "./baseService"
 
 class UserService extends BaseService {
   /**
@@ -11,7 +11,7 @@ class UserService extends BaseService {
     if (!data) throw new Error("取得に失敗しました")
 
     return {
-      ...data.paging,
+      paging: data.paging,
       items: data.users,
     }
   }

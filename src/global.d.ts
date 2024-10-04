@@ -21,3 +21,13 @@ declare namespace NodeJS {
 //   /** EthereumのプロバイダーAPIの標準仕様 */
 //   ethereum: ethers.Eip1193Provider
 // }
+
+declare interface Pagination<T> {
+  paging: {
+    total: number // 総アイテム数
+    paginate: number // ページあたりのアイテム数
+    currentPage: number // 現在のページ
+    totalPages: number // 総ページ数
+  }
+  items: T[] // 現在ページのアイテム情報
+}

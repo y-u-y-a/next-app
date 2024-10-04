@@ -1,14 +1,6 @@
 import createClient from "openapi-fetch"
 import type { paths } from "./api"
 
-export type Pagination<T> = {
-  total: number // 総アイテム数
-  currentPage: number // 現在のページ
-  totalPages: number // 総ページ数
-  paginate: number // ページあたりのアイテム数
-  items: T[] // 現在ページのアイテム情報
-}
-
 export class BaseService {
   protected api
 
@@ -34,10 +26,12 @@ export class BaseService {
     const currentItems = newItemsList[currentPage - 1] || []
 
     return {
-      paginate,
-      currentPage,
-      totalPages: newItemsList.length,
-      total: items.length,
+      paging: {
+        paginate,
+        currentPage,
+        totalPages: newItemsList.length,
+        total: items.length,
+      },
       items: currentItems,
     }
   }
